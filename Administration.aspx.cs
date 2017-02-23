@@ -1,0 +1,100 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Data.SqlClient;
+
+public partial class Administration : System.Web.UI.Page
+{
+    protected void Page_Load(object sender, EventArgs e)
+    {
+
+    }
+
+    protected void btnXMLImport_Click(object sender, EventArgs e)
+    {
+
+        //  string xmlfilename =
+        //"D:\\LAVC computer Science\\CSIT 870Exercise\\Final Project\\Survey Prj\\Survey_Questions_e.xml";
+        // "D:\\LAVC computer Science\\CSIT 870Exercise\\XMLFile_and_Templates\\XMLFile.xml";
+
+
+        System.Xml.XmlTextReader xmlreader = new System.Xml.XmlTextReader
+            (Server.MapPath("~/App_Data/Survey_Questions_e.xml"));
+
+        SqlConnection connection = new System.Data.SqlClient.SqlConnection();
+        string con_string = System.Configuration.ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+        connection.ConnectionString = con_string;
+
+
+        //string cmd_string = "DELETE FROM Question";   // remove all records from the REGIONS table
+        // System.Data.SqlClient.SqlCommand command = new System.Data.SqlClient.SqlCommand(cmd_string, connection);
+
+        /*    command.Connection.Open();
+            command.ExecuteNonQuery();                  // execute the delete command
+
+            xmlreader.MoveToContent();   */               // skip over the XML header stuff
+        while (xmlreader.Read())
+        {
+            if (xmlreader.NodeType == System.Xml.XmlNodeType.Element)  // only process the start tag of the element
+            {
+                string tag = xmlreader.Name;                   // get the tag name for the element
+                if (tag == "Question")
+                {
+                    string Focus_Group = xmlreader.GetAttribute("Focus_Group"); // get the Attribute values 
+                    string Catagory = xmlreader.GetAttribute("Catagory");
+                    string Questiontxt = xmlreader.ReadInnerXml();
+
+                    // Build and execute the INSERT command
+
+                    string cmd_string = "INSERT INTO Question(Focus_Group,Catagory,Question) VALUES ('"
+                                 + Focus_Group + "', '" + Catagory + "', '" + Questiontxt + "')";
+                    System.Data.SqlClient.SqlCommand command = new System.Data.SqlClient.SqlCommand(cmd_string, connection);
+
+                    command.CommandText = cmd_string;
+                    command.Connection.Open();
+                    command.ExecuteNonQuery();            // execute the insert command
+                    command.Connection.Close();
+                }
+
+            }
+
+
+
+        }
+
+
+
+        GridView1.Visible = true;
+    }
+
+    protected void ddlCatagory_SelectedIndexChanged(object sender, EventArgs e)
+    {
+
+    }
+
+    protected void btnAdd_Click(object sender, EventArgs e)
+    {
+        SqlConnection connection = new System.Data.SqlClient.SqlConnection();
+        string con_string = System.Configuration.ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+        connection.ConnectionString = con_string;
+
+
+
+        string cmd_string = "INSERT INTO Question(Focus_Group,Catagory,Question) VALUES ('"
+                                     + ddlFocusGroup.Text + "', '" + ddlCatagory.Text + "', '" + txtQuestion.Text + "')";
+        System.Data.SqlClient.SqlCommand command = new System.Data.SqlClient.SqlCommand(cmd_string, connection);
+
+        command.CommandText = cmd_string;
+        command.Connection.Open();
+        command.ExecuteNonQuery();            // execute the insert command
+        command.Connection.Close();
+    }
+
+    protected void btnHome_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("ParticipantEntry.aspx");
+    }
+}
