@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Survey>
+<Question Focus_Group ="All" Catagory="Job Satisfaction">Do you find your job fulfilling?</Question>
+<Question Focus_Group ="Manager"  Catagory="Job Satisfaction">DO you have funding for your current projects?</Question>
+<Question Focus_Group ="Employee" Catagory="Job Satisfaction">Does your manager empowr you to make decisions?</Question>
+<Question Focus_Group ="Employee" Catagory="Job Satisfaction">Do you feel appreciated?</Question>
+<Question Focus_Group ="Employee" Catagory="Job Satisfaction">Do you feel your job is secure?</Question>
+<Question Focus_Group ="All" Catagory="Benefits">Do you feel adaquately compensated for your work?</Question>
+<Question Focus_Group ="All" Catagory="Benefits">Would you like more time off?</Question>
+<Question Focus_Group ="All" Catagory="Workplace">Is your workplace comfortable?</Question>
+<Question Focus_Group ="Manager"  Catagory="Workplace">Does you staff have the skills you need?</Question>
+<Question Focus_Group ="Employee" Catagory="Workplace">Do you get along with your peers?</Question>
+<Question Focus_Group ="Employee" Catagory="Workplace">Does you manager provide you with the resources you need?</Question>
+
+<Comment> I reserve the option to add more Focus_Groups or Categorys. </Comment>
+<Comment> If you do not support them that is OK but they cannot "break" your import function. </Comment>
+</Survey>
